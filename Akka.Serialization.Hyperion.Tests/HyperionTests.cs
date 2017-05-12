@@ -30,4 +30,11 @@ namespace Akka.Serialization.Hyperion.Tests
         {
         }
     }
+
+    public class HyperionCyclicReferencesTests : CyclicReferencesTests
+    {
+        public HyperionCyclicReferencesTests() : base(typeof(HyperionSerializer))
+        {
+        }
+    }
 }

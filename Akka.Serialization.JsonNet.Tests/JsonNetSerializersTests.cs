@@ -30,4 +30,11 @@ namespace Akka.Serialization.JsonNet.Tests
         {
         }
     }
+
+    public abstract class JsonNetCyclicReferencesTests : CyclicReferencesTests
+    {
+        public JsonNetCyclicReferencesTests() : base(typeof(JsonNetSerializer))
+        {
+        }
+    }
 }

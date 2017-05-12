@@ -11,8 +11,8 @@ namespace Akka.Serialization
 
         public HyperionSerializer(ExtendedActorSystem system) : base(system)
         {
-            _serializer =
-                new Hyperion.Serializer(new SerializerOptions());
+            var serializerOptions = new SerializerOptions(false, true);
+            _serializer = new Hyperion.Serializer(serializerOptions);
         }
 
         public override byte[] ToBinary(object obj)

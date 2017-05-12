@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
@@ -77,11 +78,11 @@ namespace Akka.Serialization.Testkit
         }
 
         // Immutable
-        [Fact(Skip = "Not implemented yet")]
+        [Fact]
         public void Can_Serialize_ImmutableArray()
         {
-            ImmutableArray<int> actual = new[] { 5, 7, 856, 34 }.ToImmutableArray();
-            AssertEqual(actual);
+            ImmutableArray<int> expected = new[] { 5, 7, 856, 34 }.ToImmutableArray();
+            AssertAndReturn(expected).SequenceEqual(expected);
         }
 
         [Fact]
