@@ -37,4 +37,11 @@ namespace Akka.Serialization.Hyperion.Tests
         {
         }
     }
+
+    public class HyperionExceptionsSerializerTests : ExceptionsSerializerTests
+    {
+        public HyperionExceptionsSerializerTests() : base(typeof(HyperionSerializer))
+        {
+        }
+    }
 }

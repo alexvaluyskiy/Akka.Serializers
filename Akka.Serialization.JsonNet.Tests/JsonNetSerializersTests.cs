@@ -37,4 +37,11 @@ namespace Akka.Serialization.JsonNet.Tests
         {
         }
     }
+
+    public class JsonNetExceptionsTests : ExceptionsSerializerTests
+    {
+        public JsonNetExceptionsTests() : base(typeof(JsonNetSerializer))
+        {
+        }
+    }
 }
