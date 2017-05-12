@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net47</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Akka.Serialization.MsgPack\Akka.Serialization.MsgPack.csproj" />
+    <ProjectReference Include="..\Akka.Serialization.Testkit\Akka.Serialization.Testkit.csproj" />
+  </ItemGroup>
+
+</Project>

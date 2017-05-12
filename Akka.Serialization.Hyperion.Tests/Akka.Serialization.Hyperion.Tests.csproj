@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Akka.Serialization.Hyperion\Akka.Serialization.Hyperion.csproj" />
+    <ProjectReference Include="..\Akka.Serialization.Testkit\Akka.Serialization.Testkit.csproj" />
+  </ItemGroup>
+
+</Project>

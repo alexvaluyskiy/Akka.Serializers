@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Akka" Version="1.2.0" />
+    <PackageReference Include="protobuf-net" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>

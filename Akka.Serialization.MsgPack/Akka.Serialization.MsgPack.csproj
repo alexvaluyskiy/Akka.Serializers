@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net47</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Akka" Version="1.2.0" />
+    <PackageReference Include="MessagePack" Version="1.2.2" />
+    <PackageReference Include="MessagePack.ImmutableCollection" Version="1.2.2" />
+  </ItemGroup>
+
+</Project>

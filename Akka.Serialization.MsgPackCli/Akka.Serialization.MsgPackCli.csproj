@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Akka" Version="1.2.0" />
+    <PackageReference Include="MsgPack.Cli" Version="0.8.1" />
+  </ItemGroup>
+
+</Project>
