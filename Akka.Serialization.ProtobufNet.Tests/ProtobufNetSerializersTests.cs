@@ -33,7 +33,8 @@ namespace Akka.Serialization.ProtobufNet.Tests
         }
     }
 
-    public class ProtobufNetExceptionsTests : ExceptionsTests
+    // protobuf-net does not support serializing of exceptions
+    public abstract class ProtobufNetExceptionsTests : ExceptionsTests
     {
         public ProtobufNetExceptionsTests() : base(typeof(ProtobufNetSerializer))
         {

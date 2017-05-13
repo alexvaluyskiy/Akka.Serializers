@@ -21,15 +21,17 @@ namespace Akka.Serialization.Testkit
         [Fact]
         public virtual void Can_Serialize_ExceptionWithMessage()
         {
-            var exception = new SampleExceptions.BasicException("Some message");
-            AssertAndReturn(exception).Should().BeOfType<SampleExceptions.BasicException>();
+            var expected = new SampleExceptions.BasicException("Some message");
+            var actual = AssertAndReturn(expected);
+            AssertException(expected, actual);
         }
 
         [Fact]
         public virtual void Can_Serialize_ExceptionWithMessageAndInnerException()
         {
-            var exception = new SampleExceptions.BasicException("Some message", new ArgumentNullException());
-            AssertAndReturn(exception).Should().BeOfType<SampleExceptions.BasicException>();
+            var expected = new SampleExceptions.BasicException("Some message", new ArgumentNullException());
+            var actual = AssertAndReturn(expected);
+            AssertException(expected, actual);
         }
 
         [Fact]
@@ -127,9 +129,9 @@ namespace Akka.Serialization.Testkit
                 Age = info.GetInt32("Age");
             }
 
-            public string Name { get; }
+            public string Name { get; set; }
 
-            public int Age { get; }
+            public int Age { get; set; }
 
             public override void GetObjectData(SerializationInfo info, StreamingContext context)
             {

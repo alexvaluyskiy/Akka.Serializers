@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFrameworks>net462</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,4 +10,7 @@
     <PackageReference Include="MessagePack.ImmutableCollection" Version="1.2.2" />
   </ItemGroup>
 
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
+    <DefineConstants>$(DefineConstants);SERIALIZABLE</DefineConstants>
+  </PropertyGroup>
 </Project>
