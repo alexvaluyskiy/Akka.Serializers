@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using Akka.Actor;
 using Akka.Actor.Internal;
+using Akka.Serialization;
+using Akka.Util.Internal;
 using MessagePack;
 using MessagePack.Formatters;
 
@@ -83,7 +85,7 @@ namespace Akka.Serializer.MsgPack.Resolvers
 
             var path = MessagePackBinary.ReadString(bytes, offset, out readSize);
 
-            var system = (ActorSystemImpl)CallContext.GetData("ActorSystem");
+            var system = MsgPackSerializer.LocalSystem.Value.AsInstanceOf<ExtendedActorSystem>();
             if (system == null)
                 return default(T);
 

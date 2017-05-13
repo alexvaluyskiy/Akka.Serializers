@@ -2,7 +2,7 @@
 using Akka.Actor;
 using System.IO;
 
-namespace Akka.Serialization.ProtobufNet
+namespace Akka.Serialization
 {
     public class ProtobufNetSerializer : Serializer
     {

@@ -3,7 +3,7 @@ using Akka.Actor;
 using Jil;
 using System.Text;
 
-namespace Akka.Serialization.Jil
+namespace Akka.Serialization
 {
     public class JilSerializer : Serializer
     {

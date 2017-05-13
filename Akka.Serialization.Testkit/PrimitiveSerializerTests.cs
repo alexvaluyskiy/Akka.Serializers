@@ -68,7 +68,7 @@ namespace Akka.Serialization.Testkit
         }
 
         [Fact]
-        public virtual void Can_Serialize_BigInteger()
+        public void Can_Serialize_BigInteger()
         {
             BigInteger actual = 333333333333333;
             AssertEqual(actual);
@@ -103,7 +103,7 @@ namespace Akka.Serialization.Testkit
         }
 
         [Fact]
-        public virtual void Can_Serialize_DateTimeOffset()
+        public void Can_Serialize_DateTimeOffset()
         {
             DateTimeOffset date = new DateTimeOffset(2016, 6, 7, 15, 6, 45, TimeSpan.FromSeconds(3600));
             AssertEqual(date);

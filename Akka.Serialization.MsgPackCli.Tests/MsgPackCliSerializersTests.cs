@@ -4,55 +4,6 @@ using Xunit;
 
 namespace Akka.Serialization.MsgPackCli.Tests
 {
-    public class MsgPackCliSerializersTests : PrimitiveSerializerTests
-    {
-        public MsgPackCliSerializersTests() : base(typeof(MsgPackCliSerializer))
-        {
-        }
-    }
-
-    public class MsgPackCliImmutableMessagesTests : CustomMessagesTests
-    {
-        public MsgPackCliImmutableMessagesTests() : base(typeof(MsgPackCliSerializer))
-        {
-        }
-
-        [Fact(Skip = "MsgPack.Cli does not support messages without fields or properties")]
-        public override void Can_serialize_EmptyMessage()
-        {
-        }
-
-        [Fact(Skip = "MsgPack.Cli does not support messages without fields or properties")]
-        public override void Can_serialize_EmptySingleton()
-        {
-        }
-
-        [Fact(Skip = "MsgPack.Cli does not support immutable messages")]
-        public override void Can_Serialize_ImmutableMessage()
-        {
-        }
-
-        [Fact(Skip = "MsgPack.Cli does not support immutable messages")]
-        public override void Can_Serialize_ImmutableMessageWithDefaultParameters()
-        {
-        }
-
-        [Fact(Skip = "MsgPack.Cli does not support immutable messages")]
-        public override void Can_Serialize_ImmutableMessageWithTwoConstructors()
-        {
-        }
-
-        [Fact(Skip = "MsgPack.Cli does not support deserialization of object type")]
-        public override void Can_Serialize_MessageWithObjectPropertyPrimitive()
-        {
-        }
-
-        [Fact(Skip = "MsgPack.Cli does not support deserialization of object type")]
-        public override void Can_Serialize_MessageWithObjectPropertyComplex()
-        {
-        }
-    }
-
     public class MsgPackCliAkkaMessagesTests : AkkaMessagesTests
     {
         public MsgPackCliAkkaMessagesTests() : base(typeof(MsgPackCliSerializer))
@@ -63,6 +14,51 @@ namespace Akka.Serialization.MsgPackCli.Tests
     public class MsgPackCliCollectionsTests : CollectionsTests
     {
         public MsgPackCliCollectionsTests() : base(typeof(MsgPackCliSerializer))
+        {
+        }
+    }
+
+    public class MsgPackCliCustomMessagesTests : CustomMessagesTests
+    {
+        public MsgPackCliCustomMessagesTests() : base(typeof(MsgPackCliSerializer))
+        {
+        }
+    }
+
+    // MsgPack.CLI does not support resolving of Cyclic references
+    public abstract class MsgPackCliCyclicReferencesTests : CyclicReferencesTests
+    {
+        public MsgPackCliCyclicReferencesTests() : base(typeof(MsgPackCliSerializer))
+        {
+        }
+    }
+
+    public class MsgPackCliExceptionsTests : ExceptionsTests
+    {
+        public MsgPackCliExceptionsTests() : base(typeof(MsgPackCliSerializer))
+        {
+        }
+    }
+
+    // MsgPack.CLI does not support any immutable messages
+    public abstract class MsgPackCliImmutableMessagesTests : ImmutableMessagesTests
+    {
+        public MsgPackCliImmutableMessagesTests() : base(typeof(MsgPackCliSerializer))
+        {
+        }
+    }
+
+    // MsgPack.CLI does not support preserving of object references
+    public abstract class MsgPackCliObjectReferencesTests : ObjectReferencesTests
+    {
+        public MsgPackCliObjectReferencesTests() : base(typeof(MsgPackCliSerializer))
+        {
+        }
+    }
+
+    public class MsgPackCliPrimitiveSerializerTests : PrimitiveSerializerTests
+    {
+        public MsgPackCliPrimitiveSerializerTests() : base(typeof(MsgPackCliSerializer))
         {
         }
     }

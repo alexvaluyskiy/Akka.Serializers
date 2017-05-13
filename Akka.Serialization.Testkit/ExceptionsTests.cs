@@ -5,35 +5,35 @@ using Xunit;
 
 namespace Akka.Serialization.Testkit
 {
-    public abstract class ExceptionsSerializerTests : TestKit.Xunit.TestKit
+    public abstract class ExceptionsTests : TestKit.Xunit.TestKit
     {
-        protected ExceptionsSerializerTests(Type serializerType) : base(ConfigFactory.GetConfig(serializerType))
+        protected ExceptionsTests(Type serializerType) : base(ConfigFactory.GetConfig(serializerType))
         {
         }
 
         [Fact]
-        public void Can_Serialize_Exception()
+        public virtual void Can_Serialize_Exception()
         {
             var exception = new SampleExceptions.BasicException();
             AssertAndReturn(exception).Should().BeOfType<SampleExceptions.BasicException>();
         }
 
         [Fact]
-        public void Can_Serialize_ExceptionWithMessage()
+        public virtual void Can_Serialize_ExceptionWithMessage()
         {
             var exception = new SampleExceptions.BasicException("Some message");
             AssertAndReturn(exception).Should().BeOfType<SampleExceptions.BasicException>();
         }
 
         [Fact]
-        public void Can_Serialize_ExceptionWithMessageAndInnerException()
+        public virtual void Can_Serialize_ExceptionWithMessageAndInnerException()
         {
             var exception = new SampleExceptions.BasicException("Some message", new ArgumentNullException());
             AssertAndReturn(exception).Should().BeOfType<SampleExceptions.BasicException>();
         }
 
         [Fact]
-        public void Can_Serialize_ExceptionWithStackTrace()
+        public virtual void Can_Serialize_ExceptionWithStackTrace()
         {
             try
             {
@@ -47,7 +47,7 @@ namespace Akka.Serialization.Testkit
         }
 
         [Fact]
-        public void Can_Serialize_ExceptionWithCustomFields()
+        public virtual void Can_Serialize_ExceptionWithCustomFields()
         {
             var exception = new SampleExceptions.ExceptionWithCustomFields("Some message", "John", 16);
             var actual = AssertAndReturn(exception);
@@ -104,9 +104,6 @@ namespace Akka.Serialization.Testkit
 
         public class ExceptionWithCustomFields : Exception
         {
-            private string name;
-            private int age;
-
             public ExceptionWithCustomFields()
             {
             }
@@ -120,18 +117,19 @@ namespace Akka.Serialization.Testkit
             public ExceptionWithCustomFields(string message, string name, int age, Exception innerException) 
                 : base(message, innerException)
             {
-                this.name = name;
-                this.age = age;
+                Name = name;
+                Age = age;
             }
 
             protected ExceptionWithCustomFields(SerializationInfo info, StreamingContext context) : base(info, context)
             {
-                name = info.GetString("Name");
-                age = info.GetInt32("Age");
+                Name = info.GetString("Name");
+                Age = info.GetInt32("Age");
             }
 
-            public string Name => name;
-            public int Age => age;
+            public string Name { get; }
+
+            public int Age { get; }
 
             public override void GetObjectData(SerializationInfo info, StreamingContext context)
             {
@@ -140,8 +138,8 @@ namespace Akka.Serialization.Testkit
                     throw new ArgumentNullException(nameof(info));
                 }
 
-                info.AddValue("Name", name);
-                info.AddValue("Age", age);
+                info.AddValue("Name", Name);
+                info.AddValue("Age", Age);
                 base.GetObjectData(info, context);
             }
         }

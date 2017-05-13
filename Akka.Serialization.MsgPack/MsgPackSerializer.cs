@@ -1,15 +1,17 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
 using Akka.Actor;
 using Akka.Serializer.MsgPack.Resolvers;
 using MessagePack;
 using MessagePack.Resolvers;
 using MessagePack.ImmutableCollection;
 
-namespace Akka.Serialization.MsgPack
+namespace Akka.Serialization
 {
     public class MsgPackSerializer : Serializer
     {
+        internal static AsyncLocal<ActorSystem> LocalSystem = new AsyncLocal<ActorSystem>();
+
         static MsgPackSerializer()
         {
             CompositeResolver.RegisterAndSetAsDefault(
@@ -22,8 +24,7 @@ namespace Akka.Serialization.MsgPack
 
         public MsgPackSerializer(ExtendedActorSystem system) : base(system)
         {
-            // TODO: hack to pass a context to formatters
-            CallContext.SetData("ActorSystem", system);
+            LocalSystem.Value = system;
         }
 
         public override byte[] ToBinary(object obj)

@@ -2,7 +2,7 @@
 using Akka.Actor;
 using MsgPack.Serialization;
 
-namespace Akka.Serialization.MsgPackCli
+namespace Akka.Serialization
 {
     public class MsgPackCliSerializer : Serializer
     {
@@ -12,7 +12,7 @@ namespace Akka.Serialization.MsgPackCli
 
         public override byte[] ToBinary(object obj)
         {
-            if (obj is IActorRef) return IActorRefSerializer((IActorRef)obj);
+            if (obj is IActorRef) return ActorRefSerializer((IActorRef)obj);
             if (obj is ActorPath) return ActorPathSerializer((ActorPath)obj);
 
             return ObjectSerializer(obj);
@@ -20,12 +20,11 @@ namespace Akka.Serialization.MsgPackCli
 
         public override object FromBinary(byte[] bytes, Type type)
         {
-            if (type == typeof(IActorRef)) return IActorRefDeserializer(bytes);
+            if (type == typeof(IActorRef)) return ActorRefDeserializer(bytes);
             if (type == typeof(ActorPath)) return ActorPathDeserializer(bytes);
 
             return ObjectDeserializer(bytes, type);
         }
-
 
         public override int Identifier => 31;
 
@@ -43,13 +42,13 @@ namespace Akka.Serialization.MsgPackCli
             return serializer.UnpackSingleObject(bytes);
         }
 
-        private byte[] IActorRefSerializer(IActorRef actorRef)
+        private byte[] ActorRefSerializer(IActorRef actorRef)
         {
             var str = Serialization.SerializedActorPath(actorRef);
             return ObjectSerializer(str);
         }
 
-        private object IActorRefDeserializer(byte[] bytes)
+        private object ActorRefDeserializer(byte[] bytes)
         {
             var path = (string)ObjectDeserializer(bytes, typeof(string));
             return system.Provider.ResolveActorRef(path);
