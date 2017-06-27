@@ -60,8 +60,6 @@ namespace Akka.Serialization.Testkit
         public class EmptySingleton
         {
             public static EmptySingleton Instance { get; } = new EmptySingleton();
-
-            private EmptySingleton() { }
         }
 
         public class MessageWithPublicSetters
