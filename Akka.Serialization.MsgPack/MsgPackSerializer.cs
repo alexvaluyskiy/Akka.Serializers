@@ -22,9 +22,8 @@ namespace Akka.Serialization
             CompositeResolver.RegisterAndSetAsDefault(
                 ActorPathResolver.Instance,
                 ActorRefResolver.Instance,
-                PrimitiveObjectResolver.Instance,
-                ImmutableCollectionResolver.Instance,
-                ContractlessStandardResolver.Instance);
+                ImmutableCollectionResolver.Instance,              
+                TypelessContractlessStandardResolver.Instance);
         }
 
         public MsgPackSerializer(ExtendedActorSystem system) : base(system)
@@ -34,7 +33,7 @@ namespace Akka.Serialization
 
         public override byte[] ToBinary(object obj)
         {
-            if (obj is Exception) return SerializeException(obj as Exception);
+            if (obj is Exception ex) return SerializeException(ex);
 
             return MessagePackSerializer.NonGeneric.Serialize(obj.GetType(), obj);
         }

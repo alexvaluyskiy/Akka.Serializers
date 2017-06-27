@@ -68,10 +68,5 @@ namespace Akka.Serialization.MsgPack.Tests
         public MsgPackPrimiviteSerializerTests() : base(typeof(MsgPackSerializer))
         {
         }
-
-        [Fact(Skip = "MsgPack supports DateTime only in Utc format")]
-        public override void Can_Serialize_DateTime()
-        {
-        }
     }
 }

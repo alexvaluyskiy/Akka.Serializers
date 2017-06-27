@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Akka" Version="1.2.0" />
-    <PackageReference Include="protobuf-net" Version="2.1.0" />
+    <PackageReference Include="protobuf-net" Version="2.2.1" />
   </ItemGroup>
 
 </Project>

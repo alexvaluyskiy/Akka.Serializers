@@ -8,53 +8,27 @@ namespace Akka.Serializer.MsgPack.Resolvers
 {
     public class ActorPathResolver : IFormatterResolver
     {
-        // Resolver should be singleton.
         public static IFormatterResolver Instance = new ActorPathResolver();
+        private ActorPathResolver() { }
+        public IMessagePackFormatter<T> GetFormatter<T>() => FormatterCache<T>.Formatter;
 
-        ActorPathResolver()
-        {
-        }
-
-        // GetFormatter<T>'s get cost should be minimized so use type cache.
-        public IMessagePackFormatter<T> GetFormatter<T>()
-        {
-            return FormatterCache<T>.Formatter;
-        }
-
-        static class FormatterCache<T>
+        private static class FormatterCache<T>
         {
             public static readonly IMessagePackFormatter<T> Formatter;
-
-            // generic's static constructor should be minimized for reduce type generation size!
-            // use outer helper method.
-            static FormatterCache()
-            {
-                Formatter = (IMessagePackFormatter<T>)ActorPathResolverGetFormatterHelper.GetFormatter(typeof(T));
-            }
+            static FormatterCache() => Formatter = (IMessagePackFormatter<T>)ActorPathResolverGetFormatterHelper.GetFormatter(typeof(T));
         }
     }
 
     internal static class ActorPathResolverGetFormatterHelper
     {
-        // If type is concrete type, use type-formatter map
-        static readonly Dictionary<Type, object> FormatterMap = new Dictionary<Type, object>()
+        private static readonly Dictionary<Type, object> FormatterMap = new Dictionary<Type, object>
         {
             {typeof(ActorPath), new ActorPathFormatter<ActorPath>()},
             {typeof(ChildActorPath), new ActorPathFormatter<ChildActorPath>()},
             {typeof(RootActorPath), new ActorPathFormatter<RootActorPath>()}
         };
 
-        internal static object GetFormatter(Type t)
-        {
-            object formatter;
-            if (FormatterMap.TryGetValue(t, out formatter))
-            {
-                return formatter;
-            }
-
-            // If type can not get, must return null for fallback mecanism.
-            return null;
-        }
+        internal static object GetFormatter(Type t) => FormatterMap.TryGetValue(t, out var formatter) ? formatter : null;
     }
 
     public class ActorPathFormatter<T> : IMessagePackFormatter<T> where T : ActorPath
@@ -80,14 +54,7 @@ namespace Akka.Serializer.MsgPack.Resolvers
             }
 
             var path = MessagePackBinary.ReadString(bytes, offset, out readSize);
-
-            ActorPath actorPath;
-            if (ActorPath.TryParse(path, out actorPath))
-            {
-                return (T)actorPath;
-            }
-
-            return null;
+            return ActorPath.TryParse(path, out var actorPath) ? (T)actorPath : null;
         }
     }
 }
