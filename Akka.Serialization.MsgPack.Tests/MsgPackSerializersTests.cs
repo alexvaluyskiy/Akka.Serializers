@@ -1,6 +1,5 @@
 ﻿using System;
 using Akka.Serialization.Testkit;
-using Akka.Serializer.MsgPack;
 using Xunit;
 
 namespace Akka.Serialization.MsgPack.Tests
